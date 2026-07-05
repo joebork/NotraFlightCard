@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOTRA Flight Card</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- On-screen toolbar (hidden when printing) -->
+  <div class="toolbar no-print">
+    <button type="button" id="printBtn">Print / Save PDF</button>
+    <button type="button" id="clearBtn">Clear</button>
+    <span class="hint">Fill in the fields, then Print / Save PDF (choose "Save as PDF").</span>
+  </div>
+
+  <main class="card" id="card">
+    <!-- Header -->
+    <header class="card-header">
+      <h1>NOTRA FLIGHT CARD</h1>
+      <label class="date-field">DATE:
+        <input type="date" name="date" />
+      </label>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT COLUMN -->
+      <div class="col col-left">
+        <!-- Flyer box -->
+        <section class="box box-flyer">
+          <label class="line">Name:
+            <input type="text" name="name" autocomplete="off" />
+          </label>
+          <label class="line">TRA #
+            <input type="text" name="tra" autocomplete="off" />
+          </label>
+          <label class="line">NAR #
+            <input type="text" name="nar" autocomplete="off" />
+          </label>
+          <label class="line">Certification Level:
+            <input type="text" name="cert_level" autocomplete="off" />
+          </label>
+        </section>
+
+        <!-- Recovery box -->
+        <section class="box box-recovery">
+          <h2>Recovery</h2>
+
+          <div class="checks">
+            <label><input type="checkbox" name="parachute" /> Parachute</label>
+            <label><input type="checkbox" name="streamer" /> Streamer</label>
+            <label><input type="checkbox" name="other" /> Other</label>
+          </div>
+
+          <div class="checks">
+            <label><input type="checkbox" name="apogee_ejection" /> Apogee Ejection</label>
+            <label><input type="checkbox" name="dual_deploy" /> Dual Deploy</label>
+          </div>
+
+          <label class="line">Electronics Type:
+            <input type="text" name="electronics_type" autocomplete="off" />
+          </label>
+
+          <div class="checks">
+            <label><input type="checkbox" name="drogue" /> Drogue</label>
+            <label><input type="checkbox" name="drogueless" /> Drogueless</label>
+          </div>
+
+          <label class="line indent">Main at
+            <input type="text" class="short" name="main_at" autocomplete="off" /> feet
+          </label>
+          <label class="line indent">Main Parachute size:
+            <input type="text" name="main_size" autocomplete="off" />
+          </label>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col col-right">
+        <!-- Rocket box -->
+        <section class="box box-rocket">
+          <label class="line">Rocket Mfg/Name:
+            <input type="text" name="rocket_name" autocomplete="off" />
+          </label>
+
+          <div class="checks">
+            <label><input type="checkbox" name="kit" /> Kit</label>
+            <label><input type="checkbox" name="scratch_built" /> Scratch Built</label>
+            <label><input type="checkbox" name="first_flight" /> First Flight</label>
+          </div>
+
+          <div class="line multi">
+            <label>Length:
+              <input type="text" class="short" name="length" autocomplete="off" />
+            </label>
+            <label>Dia:
+              <input type="text" class="short" name="dia" autocomplete="off" />
+            </label>
+            <label>Weight:
+              <input type="text" class="short" name="weight" autocomplete="off" />
+            </label>
+          </div>
+
+          <label class="line">Color(s):
+            <input type="text" name="colors" autocomplete="off" />
+          </label>
+
+          <div class="checks">
+            <label><input type="checkbox" name="multi_stage" /> Multi-Stage</label>
+            <label><input type="checkbox" name="cluster" /> Cluster</label>
+            <label><input type="checkbox" name="air_start" /> Air Start</label>
+          </div>
+
+          <label class="line">Motor Mfg/Type(s):
+            <input type="text" name="motor" autocomplete="off" />
+          </label>
+
+          <div class="checks">
+            <label><input type="checkbox" name="commercial" /> Commercial</label>
+            <label><input type="checkbox" name="research" /> Research</label>
+            <label><input type="checkbox" name="cert_flight" /> Cert. Flight</label>
+          </div>
+
+          <div class="line multi">
+            <label>Expected Altitude:
+              <input type="text" class="medium" name="expected_altitude" autocomplete="off" />
+            </label>
+            <label class="check-inline"><input type="checkbox" name="heads_up" /> Heads Up</label>
+          </div>
+        </section>
+
+        <!-- RSO / Pad row -->
+        <div class="rso-row">
+          <section class="box stamp">
+            <span class="stamp-label">RSO Check</span>
+          </section>
+          <section class="box stamp">
+            <span class="stamp-label">Pad #</span>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rod/Rail bar -->
+    <section class="box rodrail" id="rodrail">
+      <span class="rodrail-label">Rod/Rail Size:</span>
+
+      <!-- Screen-only picker; hidden in print -->
+      <label class="rodrail-picker no-print">
+        <span class="sr-only">Select rod or rail size</span>
+        <select id="rodrailSelect">
+          <option value="">— select —</option>
+          <option value="1/8">1/8</option>
+          <option value="3/16">3/16</option>
+          <option value="1/4">1/4</option>
+          <option value="3/8">3/8</option>
+          <option value="7/16">7/16</option>
+          <option value="1010">1010</option>
+          <option value="1515">1515</option>
+        </select>
+      </label>
+
+      <!-- Static row: always printed; matching value gets an outline -->
+      <div class="rodrail-values" aria-hidden="true">
+        <span class="rodrail-value" data-value="1/8">1/8</span>
+        <span class="rodrail-value" data-value="3/16">3/16</span>
+        <span class="rodrail-value" data-value="1/4">&frac14;</span>
+        <span class="rodrail-value" data-value="3/8">3/8</span>
+        <span class="rodrail-value" data-value="7/16">7/16</span>
+        <span class="rodrail-value" data-value="1010">1010</span>
+        <span class="rodrail-value" data-value="1515">1515</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
